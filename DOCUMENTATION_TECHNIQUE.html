@@ -1,0 +1,1343 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Technique - Montaza ERP</title>
+    <style>
+        @page {
+            margin: 2cm;
+            size: A4;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            font-size: 11pt;
+            background: white;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+            page-break-before: always;
+            font-size: 24pt;
+            page-break-after: avoid;
+        }
+        h1:first-of-type {
+            page-break-before: auto;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #95a5a6;
+            padding-bottom: 8px;
+            margin-top: 25px;
+            font-size: 18pt;
+            page-break-after: avoid;
+        }
+        h3 {
+            color: #2980b9;
+            margin-top: 20px;
+            font-size: 14pt;
+            page-break-after: avoid;
+        }
+        h4 {
+            color: #16a085;
+            margin-top: 15px;
+            font-size: 12pt;
+            page-break-after: avoid;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 9pt;
+            color: #c7254e;
+            word-break: break-word;
+        }
+        pre {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 4px;
+            page-break-inside: avoid;
+            margin: 15px 0;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #333;
+            font-size: 8.5pt;
+            display: block;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+            page-break-inside: avoid;
+            font-size: 10pt;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        blockquote {
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-left: 0;
+            color: #555;
+            font-style: italic;
+        }
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #ecf0f1;
+            margin: 30px 0;
+            page-break-after: avoid;
+        }
+        strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        em {
+            font-style: italic;
+            color: #555;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        @media print {
+            body {
+                font-size: 10pt;
+                padding: 0;
+            }
+            h1 {
+                font-size: 20pt;
+            }
+            h2 {
+                font-size: 16pt;
+            }
+            h3 {
+                font-size: 13pt;
+            }
+            h4 {
+                font-size: 11pt;
+            }
+            pre, table {
+                page-break-inside: avoid;
+            }
+            a {
+                color: #3498db;
+                text-decoration: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>Documentation Technique - Montaza ERP</h1>
+
+<h2>Table des matières</h2>
+
+<p>1. <a href="#vue-densemble">Vue d'ensemble</a></p>
+<p>2. <a href="#architecture-technique">Architecture technique</a></p>
+<p>3. <a href="#stack-technologique">Stack technologique</a></p>
+<p>4. <a href="#structure-du-projet">Structure du projet</a></p>
+<p>5. <a href="#modèles-de-données">Modèles de données</a></p>
+<p>6. <a href="#modules-fonctionnels">Modules fonctionnels</a></p>
+<p>7. <a href="#services">Services</a></p>
+<p>8. <a href="#routes-et-contrôleurs">Routes et Contrôleurs</a></p>
+<p>9. <a href="#composants-livewire">Composants Livewire</a></p>
+<p>10. <a href="#helpers">Helpers</a></p>
+<p>11. <a href="#gestion-des-permissions">Gestion des permissions</a></p>
+<p>12. <a href="#système-de-notifications">Système de notifications</a></p>
+<p>13. <a href="#gestion-des-médias">Gestion des médias</a></p>
+<p>14. <a href="#installation-et-configuration">Installation et configuration</a></p>
+<p>15. <a href="#tests">Tests</a></p>
+<p>16. <a href="#scripts-de-migration">Scripts de migration</a></p>
+
+<p>---</p>
+
+<h2>Vue d'ensemble</h2>
+
+<strong>Montaza</strong> est une application web ERP (Enterprise Resource Planning) développée avec Laravel 12, conçue pour la gestion complète d'une entreprise de tuyauterie et de montage industriel. L'application centralise la gestion commerciale, les stocks, les affaires (projets), les devis, la gestion du personnel et des ateliers.
+
+<h3>Objectifs du système</h3>
+
+<ul><li><strong>Gestion commerciale</strong> : Commandes (CDE), Demandes de Prix (DDP), Devis</li>
+<li><strong>Gestion de projets</strong> : Affaires avec suivi budgétaire et planning</li>
+<li><strong>Gestion des stocks</strong> : Matières premières avec mouvements et alertes</li>
+<li><strong>Gestion du personnel</strong> : Planning, affectations, congés</li>
+<li><strong>Atelier et SAV</strong> : Réparations, matériel</li>
+<li><strong>Administration</strong> : Utilisateurs, permissions, paramètres</li></ul>
+
+<p>---</p>
+
+<h2>Architecture technique</h2>
+
+<h3>Architecture globale</h3>
+
+<p>``<code></p>
+<p>┌─────────────────────────────────────────────────────────────┐</p>
+<p>│                    Navigateur Web (Client)                   │</p>
+<p>│                  (Blade Templates + Livewire)                │</p>
+<p>└────────────────────────────┬─────────────────────────────────┘</p>
+<p>                             │ HTTP/HTTPS</p>
+<p>┌────────────────────────────▼─────────────────────────────────┐</p>
+<p>│                   Serveur Web (Nginx/Apache)                  │</p>
+<p>└────────────────────────────┬─────────────────────────────────┘</p>
+<p>                             │</p>
+<p>┌────────────────────────────▼─────────────────────────────────┐</p>
+<p>│                    Laravel 12 Application                     │</p>
+<p>│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │</p>
+<p>│  │ Controllers  │  │   Services   │  │   Models     │       │</p>
+<p>│  └──────────────┘  └──────────────┘  └──────────────┘       │</p>
+<p>│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐       │</p>
+<p>│  │  Livewire    │  │  Middleware  │  │   Helpers    │       │</p>
+<p>│  └──────────────┘  └──────────────┘  └──────────────┘       │</p>
+<p>└────────────────────────────┬─────────────────────────────────┘</p>
+<p>                             │</p>
+<p>┌────────────────────────────▼─────────────────────────────────┐</p>
+<p>│                   PostgreSQL Database                         │</p>
+<p>└───────────────────────────────────────────────────────────────┘</p>
+</code>`<code>
+
+<h3>Modèle MVC + Services</h3>
+
+<p>L'application suit le pattern MVC (Model-View-Controller) enrichi par :</p>
+
+<ul><li><strong>Models</strong> : Eloquent ORM pour l'accès aux données</li>
+<li><strong>Views</strong> : Templates Blade + Composants Livewire</li>
+<li><strong>Controllers</strong> : Logique de routing et orchestration</li>
+<li><strong>Services</strong> : Logique métier complexe (</code>StockService<code>, </code>AccountingService<code>)</li>
+<li><strong>Observers</strong> : Événements et actions automatiques sur les modèles</li>
+<li><strong>Middleware</strong> : Sécurité (XSS, CSRF, permissions)</li></ul>
+
+<p>---</p>
+
+<h2>Stack technologique</h2>
+
+<h3>Backend</h3>
+
+<p>| Technologie | Version | Usage |</p>
+<p>|------------|---------|--------|</p>
+<p>| PHP | 8.2+ | Langage serveur |</p>
+<p>| Laravel | 12.0 | Framework principal |</p>
+<p>| PostgreSQL | - | Base de données |</p>
+<p>| Livewire | 3.6 | Composants dynamiques |</p>
+<p>| Composer | - | Gestion des dépendances PHP |</p>
+
+<h3>Packages Laravel principaux</h3>
+
+</code>`<code>json
+<p>{</p>
+<p>  "laravel/framework": "^12.0",</p>
+<p>  "laravel/tinker": "^2.9",</p>
+<p>  "laravel/breeze": "^2.2",</p>
+<p>  "livewire/livewire": "^3.6",</p>
+<p>  "barryvdh/laravel-dompdf": "^3.0",</p>
+<p>  "simplesoftwareio/simple-qrcode": "^4.2",</p>
+<p>  "laravel-lang/lang": "^15.7"</p>
+<p>}</p>
+</code>`<code>
+
+<h3>Frontend</h3>
+
+<p>| Technologie | Usage |</p>
+<p>|------------|--------|</p>
+<p>| Blade | Template engine |</p>
+<p>| Tailwind CSS | Framework CSS |</p>
+<p>| Alpine.js | Interactions JavaScript légères |</p>
+<p>| Vite | Build tool |</p>
+
+<h3>Outils de développement</h3>
+
+<p>| Outil | Usage |</p>
+<p>|-------|--------|</p>
+<p>| Laravel Debugbar | Debugging |</p>
+<p>| Laravel IDE Helper | Autocomplétion IDE |</p>
+<p>| PHPUnit | Tests unitaires |</p>
+<p>| PHP Insights | Qualité du code |</p>
+<p>| Laravel Pint | Formatage du code |</p>
+<p>| PHPStan | Analyse statique |</p>
+
+<p>---</p>
+
+<h2>Structure du projet</h2>
+
+</code>`<code>
+<p>montaza-laravel/</p>
+<p>├── app/</p>
+<p>│   ├── Console/</p>
+<p>│   │   └── Commands/           # Commandes Artisan personnalisées</p>
+<p>│   ├── Helpers/</p>
+<p>│   │   ├── DateHelper.php      # Helpers de formatage de dates</p>
+<p>│   │   └── NumberHelper.php    # Helpers de formatage de nombres</p>
+<p>│   ├── Http/</p>
+<p>│   │   ├── Controllers/        # Contrôleurs applicatifs</p>
+<p>│   │   └── Middleware/         # Middleware personnalisés</p>
+<p>│   ├── Livewire/               # Composants Livewire</p>
+<p>│   ├── Mail/                   # Classes d'emails</p>
+<p>│   ├── Models/                 # Modèles Eloquent (60+ modèles)</p>
+<p>│   ├── Observers/              # Observers pour événements modèles</p>
+<p>│   ├── Providers/              # Service Providers</p>
+<p>│   ├── Services/               # Services métier</p>
+<p>│   │   ├── StockService.php</p>
+<p>│   │   └── AccountingService.php</p>
+<p>│   └── View/                   # View Composers</p>
+<p>├── bootstrap/</p>
+<p>│   ├── app.php                 # Initialisation de l'application</p>
+<p>│   └── providers.php           # Enregistrement des providers</p>
+<p>├── config/                     # Fichiers de configuration</p>
+<p>├── database/</p>
+<p>│   ├── migrations/             # 40+ migrations</p>
+<p>│   ├── seeders/                # Seeders (données initiales)</p>
+<p>│   └── factories/              # Factories pour tests</p>
+<p>├── lang/                       # Fichiers de traduction (fr/en)</p>
+<p>├── public/                     # Point d'entrée web</p>
+<p>│   ├── index.php</p>
+<p>│   └── img/</p>
+<p>├── resources/</p>
+<p>│   ├── css/                    # Styles CSS/Tailwind</p>
+<p>│   ├── js/                     # JavaScript/Alpine</p>
+<p>│   └── views/                  # Templates Blade</p>
+<p>├── routes/</p>
+<p>│   ├── web.php                 # Routes web principales</p>
+<p>│   ├── auth.php                # Routes d'authentification</p>
+<p>│   ├── console.php             # Routes console</p>
+<p>│   └── dev_tools.php           # Routes de développement</p>
+<p>├── storage/                    # Fichiers générés, logs, cache</p>
+<p>├── tests/                      # Tests unitaires et fonctionnels</p>
+<p>│   ├── Feature/</p>
+<p>│   └── Unit/</p>
+<p>├── vendor/                     # Dépendances Composer</p>
+<p>├── composer.json               # Dépendances PHP</p>
+<p>├── package.json                # Dépendances NPM</p>
+<p>├── phpunit.xml                 # Configuration PHPUnit</p>
+<p>├── phpstan.neon                # Configuration PHPStan</p>
+<p>└── vite.config.js              # Configuration Vite</p>
+</code>`<code>
+
+<p>---</p>
+
+<h2>Modèles de données</h2>
+
+<p>Le projet contient <strong>60+ modèles Eloquent</strong> organisés en domaines fonctionnels.</p>
+
+<h3>Modèles principaux</h3>
+
+<h4>Gestion commerciale</h4>
+
+<p>| Modèle | Description | Relations principales |</p>
+<p>|--------|-------------|----------------------|</p>
+<p>| </code>Cde<code> | Commande d'achat | </code>cdeLignes<code>, </code>affaire<code>, </code>ddp<code>, </code>entite<code> |</p>
+<p>| </code>CdeLigne<code> | Ligne de commande | </code>cde<code>, </code>matiere<code>, </code>unite<code> |</p>
+<p>| </code>Ddp<code> | Demande de prix | </code>ddpLignes<code>, </code>affaire<code>, </code>entite<code> |</p>
+<p>| </code>DdpLigne<code> | Ligne de demande de prix | </code>ddp<code>, </code>matiere<code> |</p>
+<p>| </code>DdpLigneFournisseur<code> | Réponses fournisseurs | </code>ddpLigne<code>, </code>societe<code> |</p>
+<p>| </code>Facture<code> | Factures | </code>affaire<code> |</p>
+
+<h4>Affaires et projets</h4>
+
+<p>| Modèle | Description | Relations principales |</p>
+<p>|--------|-------------|----------------------|</p>
+<p>| </code>Affaire<code> | Projet/Chantier | </code>cdes<code>, </code>ddps<code>, </code>reparations<code>, </code>devisTuyauteries<code>, </code>personnels<code> |</p>
+<p>| </code>AffairePersonnel<code> | Affectation du personnel | </code>affaire<code>, </code>personnel<code>, </code>taches<code> |</p>
+<p>| </code>AffairePersonnelTache<code> | Tâches assignées | </code>affairePersonnel<code> |</p>
+<p>| </code>AffaireSuiviLigne<code> | Lignes de suivi d'affaire | </code>affaire<code> |</p>
+
+<h4>Devis</h4>
+
+<p>| Modèle | Description | Relations principales |</p>
+<p>|--------|-------------|----------------------|</p>
+<p>| </code>DevisTuyauterie<code> | Devis de tuyauterie | </code>sections<code>, </code>affaire<code>, </code>societe<code> |</p>
+<p>| </code>DevisTuyauterieSection<code> | Section de devis | </code>devisTuyauterie<code>, </code>lignes<code> |</p>
+<p>| </code>DevisTuyauterieLigne<code> | Ligne de devis | </code>section<code>, </code>matiere<code> |</p>
+<p>| </code>DossierDevis<code> | Dossier de devis | </code>quantitatifs<code>, </code>standards<code> |</p>
+<p>| </code>DossierDevisQuantitatif<code> | Quantitatif de devis | </code>dossierDevis<code>, </code>matiere<code> |</p>
+
+<h4>Stock et matières</h4>
+
+<p>| Modèle | Description | Relations principales |</p>
+<p>|--------|-------------|----------------------|</p>
+<p>| </code>Matiere<code> | Article/Matière première | </code>famille<code>, </code>sousFamille<code>, </code>unite<code>, </code>stocks<code> |</p>
+<p>| </code>Stock<code> | Stock disponible | </code>matiere<code>, </code>entite<code> |</p>
+<p>| </code>MouvementStock<code> | Mouvements de stock | </code>matiere<code>, </code>entite<code>, </code>user<code> |</p>
+<p>| </code>Famille<code> | Famille d'articles | </code>sousFamilles<code>, </code>matieres<code> |</p>
+<p>| </code>SousFamille<code> | Sous-famille d'articles | </code>famille<code>, </code>matieres<code> |</p>
+<p>| </code>Unite<code> | Unités de mesure | </code>matieres<code> |</p>
+<p>| </code>Standard<code> | Standards techniques | </code>versions<code> |</p>
+
+<h4>Tiers (Sociétés)</h4>
+
+<p>| Modèle | Description | Relations principales |</p>
+<p>|--------|-------------|----------------------|</p>
+<p>| </code>Societe<code> | Client/Fournisseur | </code>etablissements<code>, </code>societeContacts<code>, </code>matieres<code> |</p>
+<p>| </code>Etablissement<code> | Établissement d'une société | </code>societe<code>, </code>contacts<code>, </code>pays<code> |</p>
+<p>| </code>SocieteContact<code> | Contact dans un établissement | </code>etablissement<code> |</p>
+<p>| </code>SocieteMatiere<code> | Prix fournisseur | </code>societe<code>, </code>matiere<code>, </code>etablissement<code> |</p>
+<p>| </code>SocieteType<code> | Type de société | (Client/Fournisseur/Les deux) |</p>
+
+<h4>Personnel et ressources</h4>
+
+<p>| Modèle | Description | Relations principales |</p>
+<p>|--------|-------------|----------------------|</p>
+<p>| </code>Personnel<code> | Employé | </code>user<code>, </code>affaires<code>, </code>conges<code> |</p>
+<p>| </code>PersonnelConge<code> | Congés du personnel | </code>personnel<code> |</p>
+<p>| </code>User<code> | Utilisateur système | </code>role<code>, </code>personnel<code>, </code>entite<code> |</p>
+
+<h4>Atelier et SAV</h4>
+
+<p>| Modèle | Description | Relations principales |</p>
+<p>|--------|-------------|----------------------|</p>
+<p>| </code>Reparation<code> | Dossier de réparation | </code>affaire<code>, </code>materiel<code>, </code>societe<code> |</p>
+<p>| </code>Materiel<code> | Parc matériel | </code>affaires<code> (relation many-to-many) |</p>
+
+<h4>Administration</h4>
+
+<p>| Modèle | Description | Relations principales |</p>
+<p>|--------|-------------|----------------------|</p>
+<p>| </code>Role<code> | Rôle utilisateur | </code>permissions<code>, </code>users<code> |</p>
+<p>| </code>Permission<code> | Permission | </code>roles<code> (many-to-many) |</p>
+<p>| </code>Entite<code> | Entité juridique | </code>cdes<code>, </code>ddps<code>, </code>stocks<code> |</p>
+<p>| </code>AppSetting<code> | Paramètres globaux | - |</p>
+<p>| </code>Notification<code> | Notifications | </code>role<code>, </code>user<code> |</p>
+<p>| </code>ModelChange<code> | Historique des modifications | - |</p>
+
+<h4>Données de référence</h4>
+
+<p>| Modèle | Description |</p>
+<p>|--------|-------------|</p>
+<p>| </code>Pays<code> | Pays |</p>
+<p>| </code>FormeJuridique<code> | Formes juridiques |</p>
+<p>| </code>CodeApe<code> | Codes APE |</p>
+<p>| </code>ConditionPaiement<code> | Conditions de paiement |</p>
+<p>| </code>TypeExpedition<code> | Types d'expédition |</p>
+<p>| </code>Mailtemplate<code> | Templates d'emails |</p>
+
+<h4>Médias et commentaires</h4>
+
+<p>| Modèle | Description | Relations principales |</p>
+<p>|--------|-------------|----------------------|</p>
+<p>| </code>Media<code> | Fichiers attachés | Polymorphique (tous modèles) |</p>
+<p>| </code>MediaType<code> | Types de médias | </code>medias<code> |</p>
+<p>| </code>Commentaire<code> | Commentaires | Polymorphique |</p>
+
+<h3>Relations importantes</h3>
+
+<h4>Affaire → Documents commerciaux</h4>
+
+</code>`<code>
+<p>Affaire (1) ──── (<em>) Cde          (Commandes)</p>
+<p>            ──── (</em>) Ddp          (Demandes de prix)</p>
+<p>            ──── (<em>) DevisTuyauterie (Devis)</p>
+<p>            ──── (</em>) Reparation   (Réparations)</p>
+</code>`<code>
+
+<h4>Commande → Lignes → Stock</h4>
+
+</code>`<code>
+<p>Cde (1) ──── (<em>) CdeLigne</p>
+<p>                  └── (1) Matiere</p>
+<p>                  └── Auto-stockage au passage statut "Livrée"</p>
+</code>`<code>
+
+<h4>Société → Établissements → Contacts</h4>
+
+</code>`<code>
+<p>Societe (1) ──── (</em>) Etablissement (1) ──── (<em>) SocieteContact</p>
+</code>`<code>
+
+<h4>Matière → Stock → Mouvements</h4>
+
+</code>`<code>
+<p>Matiere (1) ──── (</em>) Stock (par entité)</p>
+<p>           └──── (<em>) MouvementStock (historique)</p>
+</code>`<code>
+
+<p>---</p>
+
+<h2>Modules fonctionnels</h2>
+
+<h3>1. Gestion Commerciale</h3>
+
+<h4>Commandes (CDE)</h4>
+
+<strong>Contrôleur</strong> : </code>CdeController.php<code>
+
+<strong>Fonctionnalités</strong> :
+<ul><li>Création, édition, suppression de commandes</li>
+<li>Gestion des lignes de commande</li>
+<li>Passage de statuts (En attente → En cours → Livrée)</li>
+<li>Auto-stockage lors du passage au statut "Livrée"</li>
+<li>Génération de PDF de commande</li>
+<li>Association à une affaire</li>
+<li>Gestion des notes et commentaires</li></ul>
+
+<strong>Routes principales</strong> :
+</code>`<code>php
+<p>Route::resource('commandes', CdeController::class);</p>
+<p>Route::get('/commandes/{cde}/pdf', [CdeController::class, 'generatePdf']);</p>
+</code>`<code>
+
+<strong>Statuts de commande</strong> :
+<ul><li>En attente</li>
+<li>En cours</li>
+<li>Livrée (déclenche l'auto-stockage)</li>
+<li>Annulée</li></ul>
+
+<h4>Demandes de Prix (DDP)</h4>
+
+<strong>Contrôleur</strong> : </code>DdpController.php<code>
+
+<strong>Fonctionnalités</strong> :
+<ul><li>Création de DDP multi-fournisseurs</li>
+<li>Comparaison des réponses fournisseurs</li>
+<li>Conversion DDP → CDE</li>
+<li>Génération de PDF</li></ul>
+
+<h4>Devis de Tuyauterie</h4>
+
+<strong>Contrôleur</strong> : </code>DevisTuyauterieController.php<code>
+
+<strong>Fonctionnalités</strong> :
+<ul><li>Création de devis multi-sections</li>
+<li>Calcul automatique des totaux, marges, TVA</li>
+<li>Réservation de stock temporaire</li>
+<li>Génération de PDF personnalisé</li>
+<li>Association à une affaire et une société</li>
+<li>Archivage des devis</li></ul>
+
+<strong>Structure</strong> :
+</code>`<code>
+<p>DevisTuyauterie</p>
+<p>  └── DevisTuyauterieSection (1..</em>)</p>
+<p>        └── DevisTuyauterieLigne (1..<em>)</p>
+<p>              └── Matiere (0..1)</p>
+</code>`<code>
+
+<h3>2. Gestion des Affaires</h3>
+
+<strong>Contrôleur</strong> : </code>AffaireController.php<code>
+
+<strong>Fonctionnalités</strong> :
+<ul><li>Création et suivi des affaires (projets)</li>
+<li>Gestion budgétaire avec alertes</li>
+<li>Affectation du personnel et planning</li>
+<li>Tâches et créneaux horaires</li>
+<li>Affectation du matériel</li>
+<li>Totalisation automatique des documents liés (CDE, DDP, Devis)</li>
+<li>Statuts : En attente, En cours, Terminé, Archivé</li></ul>
+
+<strong>Relations</strong> :
+<ul><li>Une affaire agrège : commandes, demandes de prix, devis, réparations, factures</li>
+<li>Suivi du personnel affecté avec tâches et créneaux</li>
+<li>Gestion des congés du personnel</li></ul>
+
+<strong>Calculs automatiques</strong> :
+</code>`<code>php
+<p>// app/Models/Affaire.php</p>
+<p>public function updateTotal()</p>
+<p>{</p>
+<p>    $totalCdes = $this->cdes->sum('total_ht');</p>
+<p>    $totalDdps = $this->ddps->sum('total_ht');</p>
+<p>    // ... totalisation</p>
+<p>    $this->total_ht = $total;</p>
+<p>    $this->saveQuietly();</p>
+<p>}</p>
+</code>`<code>
+
+<h3>3. Gestion des Stocks</h3>
+
+<strong>Service</strong> : </code>StockService.php<code>
+
+<strong>Fonctionnalités</strong> :
+<ul><li>Entrées/Sorties de stock</li>
+<li>Mouvements tracés (historique complet)</li>
+<li>Alertes de stock minimum</li>
+<li>Calcul du stock disponible par entité</li>
+<li>Réservation de stock pour devis</li>
+<li>Auto-stockage lors de la réception de commandes</li></ul>
+
+<strong>Méthodes principales</strong> :
+
+</code>`<code>php
+<p>class StockService</p>
+<p>{</p>
+<p>    public function stock(</p>
+<p>        int $matiereId,</p>
+<p>        string $type,        // 'entree' ou 'sortie'</p>
+<p>        float $quantite,</p>
+<p>        ?float $valeurUnitaire,</p>
+<p>        string $motif,</p>
+<p>        ?int $relatedId = null</p>
+<p>    ): void</p>
+<p>    </p>
+<p>    public function checkStockMinimum(Matiere $matiere): void</p>
+<p>    </p>
+<p>    public function reserveStock(DevisTuyauterie $devis): void</p>
+<p>}</p>
+</code>`<code>
+
+<strong>Alerte de stock minimum</strong> :
+<ul><li>Notification automatique lorsque le stock passe sous le seuil</li>
+<li>Flag </code>stock_min_notif_envoyee<code> pour éviter les notifications multiples</li></ul>
+
+<h3>4. Gestion du Personnel</h3>
+
+<strong>Contrôleur</strong> : </code>PersonnelController.php<code>
+
+<strong>Fonctionnalités</strong> :
+<ul><li>Fiche personnel (informations, photo, coordonnées)</li>
+<li>Affectations aux affaires</li>
+<li>Gestion des tâches et créneaux horaires</li>
+<li>Gestion des congés</li>
+<li>Emploi du temps</li>
+<li>Historique des affectations</li>
+<li>Statut (Actif/Ancien employé)</li></ul>
+
+<strong>Modèle</strong> : </code>Personnel.php<code>
+</code>`<code>php
+<p>// Relations</p>
+<p>public function user()       // Compte utilisateur</p>
+<p>public function affaires()   // Affaires assignées</p>
+<p>public function conges()     // Congés</p>
+<p>public function taches()     // Tâches via affaires</p>
+</code>`<code>
+
+<h3>5. Réparations et Matériel</h3>
+
+<strong>Contrôleur</strong> : </code>ReparationController.php<code>, </code>MaterielController.php<code>
+
+<strong>Fonctionnalités Réparations</strong> :
+<ul><li>Création de dossiers de réparation</li>
+<li>Association au matériel et à une affaire</li>
+<li>Suivi des interventions</li>
+<li>Coûts et facturation</li></ul>
+
+<strong>Fonctionnalités Matériel</strong> :
+<ul><li>Catalogue du parc matériel</li>
+<li>Affectation aux affaires</li>
+<li>Historique des affectations</li>
+<li>Statut (Disponible/En cours/Hors service)</li></ul>
+
+<h3>6. Administration</h3>
+
+<strong>Contrôleur</strong> : </code>AdministrationController.php<code>
+
+<strong>Fonctionnalités</strong> :
+<ul><li>Gestion des entités juridiques</li>
+<li>Paramètres globaux (</code>AppSetting<code>)</li>
+<li>Gestion des utilisateurs</li>
+<li>Gestion des rôles et permissions</li>
+<li>Historique des modifications (</code>ModelChange<code>)</li>
+<li>Données de référence</li></ul>
+
+<h3>7. Système de Notifications</h3>
+
+<strong>Contrôleur</strong> : </code>NotificationController.php<code>
+
+<strong>Fonctionnalités</strong> :
+<ul><li>Notifications système par rôle</li>
+<li>Notifications personnelles par utilisateur</li>
+<li>Marquage lu/non lu</li>
+<li>Transfert de notifications</li>
+<li>Notifications temps réel</li>
+<li>Types : stock, budget, information, alerte</li></ul>
+
+<strong>Création de notification</strong> :
+</code>`<code>php
+<p>Notification::createNotification(</p>
+<p>    $role,</p>
+<p>    $type,        // 'stock', 'budget', 'information', 'alerte'</p>
+<p>    $titre,</p>
+<p>    $description,</p>
+<p>    $detail,</p>
+<p>    $route_name,</p>
+<p>    $route_params,</p>
+<p>    $cta_text</p>
+<p>);</p>
+</code>`<code>
+
+<p>---</p>
+
+<h2>Services</h2>
+
+<h3>StockService</h3>
+
+<p>Gère toute la logique métier liée aux stocks.</p>
+
+<strong>Responsabilités</strong> :
+<ul><li>Enregistrement des mouvements de stock (entrée/sortie)</li>
+<li>Calcul des stocks disponibles</li>
+<li>Vérification des seuils minimums</li>
+<li>Notifications d'alerte</li>
+<li>Traçabilité complète</li></ul>
+
+<strong>Utilisation</strong> :
+</code>`<code>php
+<p>$stockService = app(\App\Services\StockService::class);</p>
+<p>$stockService->stock(</p>
+<p>    matiereId: 42,</p>
+<p>    type: 'entree',</p>
+<p>    quantite: 100,</p>
+<p>    valeurUnitaire: 15.50,</p>
+<p>    motif: 'Livraison commande CDE-2026-001',</p>
+<p>    relatedId: $cdeLigne->id</p>
+<p>);</p>
+</code>`<code>
+
+<h3>AccountingService</h3>
+
+<p>Service pour la gestion comptable et financière.</p>
+
+<strong>Responsabilités</strong> :
+<ul><li>Calculs de totaux, TVA, marges</li>
+<li>Génération de rapports financiers</li>
+<li>Consolidation des données par affaire</li></ul>
+
+<p>---</p>
+
+<h2>Routes et Contrôleurs</h2>
+
+<h3>Organisation des routes</h3>
+
+<p>| Fichier | Description |</p>
+<p>|---------|-------------|</p>
+<p>| </code>web.php<code> | Routes principales de l'application |</p>
+<p>| </code>auth.php<code> | Authentification (Laravel Breeze) |</p>
+<p>| </code>console.php<code> | Commandes Artisan |</p>
+<p>| </code>dev_tools.php<code> | Outils de développement |</p>
+
+<h3>Middleware appliqués</h3>
+
+</code>`<code>php
+<p>Route::middleware(['GetGlobalVariable', 'XSSProtection', 'auth'])->group(function () {</p>
+<p>    // Routes protégées</p>
+<p>});</p>
+</code>`<code>
+
+<strong>Middleware personnalisés</strong> :
+<ul><li></code>GetGlobalVariable<code> : Injecte des variables globales (entités, etc.)</li>
+<li></code>XSSProtection<code> : Protection contre les attaques XSS</li>
+<li></code>permission:nom_permission<code> : Vérification des permissions</li></ul>
+
+<h3>Structure des contrôleurs</h3>
+
+<p>La plupart des contrôleurs suivent le pattern <strong>Resource Controller</strong> :</p>
+
+</code>`<code>php
+<p>class CdeController extends Controller</p>
+<p>{</p>
+<p>    public function index()     // Liste</p>
+<p>    public function create()    // Formulaire de création</p>
+<p>    public function store()     // Enregistrement</p>
+<p>    public function show($id)   // Détail</p>
+<p>    public function edit($id)   // Formulaire d'édition</p>
+<p>    public function update($id) // Mise à jour</p>
+<p>    public function destroy($id)// Suppression</p>
+<p>}</p>
+</code>`<code>
+
+<strong>Contrôleurs spécialisés</strong> :
+<ul><li></code>ReferenceDataController<code> : Gestion des données de référence (familles, sous-familles, etc.)</li>
+<li></code>PersonnelEmploiDuTempsController<code> : Emploi du temps du personnel</li>
+<li></code>MatierePrixController<code> : Gestion des prix fournisseurs</li>
+<li></code>MediaController<code> : Upload et gestion des fichiers</li></ul>
+
+<p>---</p>
+
+<h2>Composants Livewire</h2>
+
+<p>L'application utilise <strong>Livewire 3.6</strong> pour des composants réactifs sans JavaScript.</p>
+
+<h3>Composants disponibles</h3>
+
+<p>| Composant | Fichier | Usage |</p>
+<p>|-----------|---------|-------|</p>
+<p>| </code>CdeList<code> | </code>app/Livewire/CdeList.php<code> | Liste interactive des commandes |</p>
+<p>| </code>DevisTuyauterieForm<code> | </code>app/Livewire/DevisTuyauterieForm.php<code> | Formulaire de devis dynamique |</p>
+<p>| </code>MediaSidebar<code> | </code>app/Livewire/MediaSidebar.php<code> | Sidebar de gestion des médias |</p>
+
+<h3>Exemple : DevisTuyauterieForm</h3>
+
+<p>Ce composant gère la création/édition de devis avec :</p>
+<ul><li>Ajout/suppression de sections</li>
+<li>Ajout/suppression de lignes</li>
+<li>Calcul automatique des totaux</li>
+<li>Recherche de matières</li>
+<li>Calcul de marges</li></ul>
+
+<p>---</p>
+
+<h2>Helpers</h2>
+
+<h3>DateHelper</h3>
+
+<strong>Fichier</strong> : </code>app/Helpers/DateHelper.php<code>
+
+<strong>Fonction</strong> :
+</code>`<code>php
+<p>function formatDate($date_string, $avec_heure = false): string</p>
+</code>`<code>
+
+<p>Formate une date au format français :</p>
+<ul><li>Avec heure : </code>d/m/Y H:i<code></li>
+<li>Sans heure : </code>d/m/Y<code></li></ul>
+
+<h3>NumberHelper</h3>
+
+<strong>Fichier</strong> : </code>app/Helpers/NumberHelper.php<code>
+
+<strong>Fonctions</strong> :
+</code>`<code>php
+<p>function formatNumber($number, $decimales = 2): string</p>
+<p>function formatMontant($montant): string</p>
+<p>function formatQuantite($quantite): string</p>
+</code>`<code>
+
+<p>Formatage des nombres avec séparateurs français :</p>
+<ul><li>Milliers : espace</li>
+<li>Décimales : virgule</li></ul>
+
+<p>---</p>
+
+<h2>Gestion des permissions</h2>
+
+<h3>Système de rôles et permissions</h3>
+
+<p>L'application utilise un système personnalisé de rôles et permissions.</p>
+
+<strong>Modèles</strong> :
+<ul><li></code>Role<code> : Rôle utilisateur (Admin, Acheteur, Commercial, etc.)</li>
+<li></code>Permission<code> : Permission granulaire</li>
+<li>Relation many-to-many entre </code>Role<code> et </code>Permission<code></li></ul>
+
+<h3>Permissions standard</h3>
+
+<p>| Permission | Description |</p>
+<p>|-----------|-------------|</p>
+<p>| </code>gerer_les_utilisateurs<code> | Gestion des utilisateurs |</p>
+<p>| </code>gerer_les_permissions<code> | Attribution des permissions |</p>
+<p>| </code>gerer_les_postes<code> | Gestion des rôles |</p>
+<p>| </code>gerer_les_donnees_de_reference<code> | Données de référence |</p>
+<p>| </code>voir_historique<code> | Accès à l'historique des modifications |</p>
+
+<h3>Vérification des permissions</h3>
+
+<strong>Dans les routes</strong> :
+</code>`<code>php
+<p>Route::middleware('permission:gerer_les_utilisateurs')->group(function () {</p>
+<p>    // Routes réservées</p>
+<p>});</p>
+</code>`<code>
+
+<strong>Dans les vues Blade</strong> :
+</code>`<code>blade
+<p>@can('permission', 'gerer_les_utilisateurs')</p>
+<p>    <!-- Contenu réservé --></p>
+<p>@endcan</p>
+</code>`<code>
+
+<strong>Dans les contrôleurs</strong> :
+</code>`<code>php
+<p>if (!auth()->user()->can('gerer_les_utilisateurs')) {</p>
+<p>    abort(403);</p>
+<p>}</p>
+</code>`<code>
+
+<p>---</p>
+
+<h2>Système de notifications</h2>
+
+<h3>Types de notifications</h3>
+
+<p>| Type | Usage | Couleur |</p>
+<p>|------|-------|---------|</p>
+<p>| </code>information<code> | Information générale | Bleu |</p>
+<p>| </code>alerte<code> | Alerte importante | Rouge |</p>
+<p>| </code>stock<code> | Alerte de stock | Orange |</p>
+<p>| </code>budget<code> | Dépassement de budget | Rouge |</p>
+
+<h3>Création de notifications</h3>
+
+<strong>Par rôle</strong> :
+</code>`<code>php
+<p>Notification::createNotification(</p>
+<p>    $role,                      // Role model</p>
+<p>    'stock',</p>
+<p>    'Stock critique',</p>
+<p>    'Le stock de Tubes Inox est critique.',</p>
+<p>    'Stock actuel : 5 unités',</p>
+<p>    'matieres.show',</p>
+<p>    ['matiere' => 42],</p>
+<p>    'Voir la matière'</p>
+<p>);</p>
+</code>`<code>
+
+<strong>Par utilisateur</strong> :
+</code>`<code>php
+<p>Notification::createNotificationForUser(</p>
+<p>    $user,                      // User model</p>
+<p>    'information',</p>
+<p>    'Nouvelle affectation',</p>
+<p>    'Vous avez été affecté à l\'affaire AFF-2026-001.',</p>
+<p>    null,</p>
+<p>    'affaires.show',</p>
+<p>    ['affaire' => 123],</p>
+<p>    'Voir l\'affaire'</p>
+<p>);</p>
+</code>`<code>
+
+<h3>Récupération des notifications</h3>
+
+</code>`<code>php
+<p>// Notifications non lues de l'utilisateur</p>
+<p>$notifications = auth()->user()->notifications()</p>
+<p>    ->where('lu', false)</p>
+<p>    ->orderBy('created_at', 'desc')</p>
+<p>    ->get();</p>
+</code>`<code>
+
+<p>---</p>
+
+<h2>Gestion des médias</h2>
+
+<h3>Système de médias</h3>
+
+<p>Le système permet d'attacher des fichiers à n'importe quel modèle via une relation <strong>polymorphique</strong>.</p>
+
+<strong>Modèles</strong> :
+<ul><li></code>Media<code> : Fichier attaché</li>
+<li></code>MediaType<code> : Type de média (PDF, Image, Document, etc.)</li>
+<li>Trait </code>MediaableTrait<code> : À utiliser dans les modèles concernés</li></ul>
+
+<h3>Utilisation</h3>
+
+<strong>Dans un modèle</strong> :
+</code>`<code>php
+<p>use App\Models\MediaableTrait;</p>
+
+<p>class Cde extends Model</p>
+<p>{</p>
+<p>    use MediaableTrait;</p>
+<p>}</p>
+</code>`<code>
+
+<strong>Récupération des médias</strong> :
+</code>`<code>php
+<p>$cde = Cde::find(1);</p>
+<p>$medias = $cde->medias; // Tous les médias attachés</p>
+</code>`<code>
+
+<strong>Ajout de média</strong> :
+</code>`<code>php
+<p>$media = new Media([</p>
+<p>    'nom' => 'Bon de livraison.pdf',</p>
+<p>    'chemin' => $path,</p>
+<p>    'media_type_id' => 1,</p>
+<p>]);</p>
+<p>$cde->medias()->save($media);</p>
+</code>`<code>
+
+<h3>Types de médias par défaut</h3>
+
+<ul><li>PDF</li>
+<li>Image (JPEG, PNG, GIF)</li>
+<li>Document (Word, Excel)</li>
+<li>Archive (ZIP, RAR)</li>
+<li>Autre</li></ul>
+
+<p>---</p>
+
+<h2>Installation et configuration</h2>
+
+<h3>Prérequis</h3>
+
+<ul><li>PHP 8.2 ou supérieur</li>
+<li>Composer</li>
+<li>Node.js 18+ et NPM</li>
+<li>PostgreSQL 13+</li>
+<li>Serveur web (Nginx recommandé)</li>
+<li>Extension PHP : </code>pgsql<code>, </code>pdo_pgsql<code>, </code>mbstring<code>, </code>xml<code>, </code>gd<code></li></ul>
+
+<h3>Installation</h3>
+
+<h4>1. Cloner le dépôt</h4>
+
+</code>`<code>bash
+<p>git clone https://github.com/votre-org/montaza-laravel.git</p>
+<p>cd montaza-laravel</p>
+</code>`<code>
+
+<h4>2. Installer les dépendances</h4>
+
+</code>`<code>bash
+<p>composer install</p>
+<p>npm install</p>
+</code>`<code>
+
+<h4>3. Configuration de l'environnement</h4>
+
+</code>`<code>bash
+<p>cp .env.example .env</p>
+<p>php artisan key:generate</p>
+</code>`<code>
+
+<strong>Configurer </code>.env<code></strong> :
+
+</code>`<code>ini
+<p>APP_NAME=Montaza</p>
+<p>APP_ENV=production</p>
+<p>APP_DEBUG=false</p>
+<p>APP_URL=https://montaza.votredomaine.fr</p>
+
+<p>DB_CONNECTION=pgsql</p>
+<p>DB_HOST=127.0.0.1</p>
+<p>DB_PORT=5432</p>
+<p>DB_DATABASE=montaza</p>
+<p>DB_USERNAME=montaza_user</p>
+<p>DB_PASSWORD=votre_mot_de_passe_securise</p>
+
+<p>MAIL_MAILER=smtp</p>
+<p>MAIL_HOST=smtp.example.com</p>
+<p>MAIL_PORT=587</p>
+<p>MAIL_USERNAME=null</p>
+<p>MAIL_PASSWORD=null</p>
+<p>MAIL_ENCRYPTION=tls</p>
+<p>MAIL_FROM_ADDRESS=noreply@votredomaine.fr</p>
+<p>MAIL_FROM_NAME="${APP_NAME}"</p>
+</code>`<code>
+
+<h4>4. Créer la base de données</h4>
+
+</code>`<code>sql
+<p>CREATE DATABASE montaza;</p>
+<p>CREATE USER montaza_user WITH PASSWORD 'mot_de_passe';</p>
+<p>GRANT ALL PRIVILEGES ON DATABASE montaza TO montaza_user;</p>
+</code>`<code>
+
+<h4>5. Exécuter les migrations et seeders</h4>
+
+</code>`<code>bash
+<p>php artisan migrate:fresh --seed</p>
+</code>`<code>
+
+<strong>Important</strong> : Le seeder crée les utilisateurs par défaut, les rôles, les permissions et des données de test.
+
+<h4>6. Compiler les assets</h4>
+
+<strong>Développement</strong> :
+</code>`<code>bash
+<p>npm run dev</p>
+</code>`<code>
+
+<strong>Production</strong> :
+</code>`<code>bash
+<p>npm run build</p>
+</code>`<code>
+
+<h4>7. Configurer les permissions de storage</h4>
+
+<strong>Linux/Mac</strong> :
+</code>`<code>bash
+<p>chmod -R 775 storage bootstrap/cache</p>
+<p>chown -R www-data:www-data storage bootstrap/cache</p>
+</code>`<code>
+
+<strong>Windows</strong> : Utiliser le script fourni
+</code>`<code>powershell
+<p>.\fix-storage-permissions.sh</p>
+</code>`<code>
+
+<h4>8. Générer les helpers IDE</h4>
+
+</code>`<code>bash
+<p>php artisan ide-helper:generate</p>
+<p>php artisan ide-helper:models --nowrite</p>
+</code>`<code>
+
+<h4>9. Lancer le serveur de développement</h4>
+
+</code>`<code>bash
+<p>php artisan serve</p>
+</code>`<code>
+
+<p>L'application est accessible sur </code>http://localhost:8000<code></p>
+
+<h3>Comptes par défaut</h3>
+
+<p>Après le seeding :</p>
+
+<strong>Administrateur</strong> :
+<ul><li>Email : </code>admin@atlantismontaza.fr<code></li>
+<li>Mot de passe : </code>Not24get<code></li></ul>
+
+<strong>Autres utilisateurs</strong> :
+<ul><li>Format : </code>InitialeNomAnnée<code> (ex: </code>Gjosipovic2025<code>)</li></ul>
+
+<p>---</p>
+
+<h2>Tests</h2>
+
+<h3>Configuration des tests</h3>
+
+<strong>Fichier</strong> : </code>phpunit.xml<code>
+
+<p>Les tests utilisent une base de données séparée (en mémoire SQLite ou PostgreSQL de test).</p>
+
+<h3>Lancement des tests</h3>
+
+<strong>Tous les tests</strong> :
+</code>`<code>bash
+<p>php artisan test</p>
+</code>`<code>
+
+<strong>Tests spécifiques</strong> :
+</code>`<code>bash
+<p>php artisan test --filter=CdeTest</p>
+<p>php artisan test tests/Feature/CdeTest.php</p>
+</code>`<code>
+
+<h3>Scripts de tests fournis</h3>
+
+<p>| Script | Description |</p>
+<p>|--------|-------------|</p>
+<p>| </code>TEST_ALL.bat<code> | Lance tous les tests |</p>
+<p>| </code>TEST_CDE.bat<code> | Tests des commandes |</p>
+<p>| </code>TEST_CDELIGNES.bat<code> | Tests des lignes de commande |</p>
+<p>| </code>TEST_PERSONNEL.bat<code> | Tests du personnel |</p>
+
+<h3>Exemples de tests</h3>
+
+<strong>Tests unitaires</strong> : </code>tests/Unit/<code>
+<ul><li>Tests des modèles</li>
+<li>Tests des helpers</li>
+<li>Tests des services</li></ul>
+
+<strong>Tests fonctionnels</strong> : </code>tests/Feature/<code>
+<ul><li>Tests des contrôleurs</li>
+<li>Tests des routes</li>
+<li>Tests d'intégration</li></ul>
+
+<p>---</p>
+
+<h2>Scripts de migration</h2>
+
+<p>L'application fournit plusieurs scripts PowerShell pour faciliter les migrations de données.</p>
+
+<p>| Script | Description |</p>
+<p>|--------|-------------|</p>
+<p>| </code>MIGRATION_PERSONNELS.bat<code> | Import du personnel depuis CSV |</p>
+<p>| </code>MIGRATION_CONGES.bat<code> | Import des congés |</p>
+<p>| </code>MIGRATION_CRENEAUX.bat<code> | Import des créneaux horaires |</p>
+<p>| </code>EXECUTE_THIS_SQL.sql<code> | Scripts SQL de migration manuelle |</p>
+
+<p>---</p>
+
+<h2>Évolutions et maintenance</h2>
+
+<h3>Bonnes pratiques</h3>
+
+<p>1. <strong>Migrations</strong> : Toujours créer une migration pour les modifications de schéma</p>
+<p>2. <strong>Seeders</strong> : Maintenir les seeders à jour pour les tests</p>
+<p>3. <strong>Tests</strong> : Écrire des tests pour les nouvelles fonctionnalités</p>
+<p>4. <strong>Documentation</strong> : Documenter les changements importants</p>
+<p>5. <strong>Versionning</strong> : Utiliser Git Flow ou équivalent</p>
+
+<h3>Commandes utiles</h3>
+
+</code>`<code>bash
+<h1>Rafraîchir la base avec données de test</h1>
+<p>php artisan migrate:fresh --seed</p>
+
+<h1>Nettoyer les caches</h1>
+<p>php artisan cache:clear</p>
+<p>php artisan config:clear</p>
+<p>php artisan route:clear</p>
+<p>php artisan view:clear</p>
+
+<h1>Optimisation production</h1>
+<p>php artisan config:cache</p>
+<p>php artisan route:cache</p>
+<p>php artisan view:cache</p>
+
+<h1>Générer la documentation de code</h1>
+<p>php artisan ide-helper:generate</p>
+
+<h1>Analyse de code</h1>
+<p>./vendor/bin/phpstan analyse</p>
+<p>./vendor/bin/pint</p>
+
+<h1>Qualité du code</h1>
+<p>php artisan insights</p>
+</code>`<code>
+
+<h3>Structure des migrations</h3>
+
+<p>Les migrations sont organisées chronologiquement :</p>
+
+<p>1. <strong>2024-10</strong> : Création des tables de base (users, sociétés, etc.)</p>
+<p>2. <strong>2025-01</strong> : Ajout des DDP et CDE</p>
+<p>3. <strong>2025-02</strong> : Système de mouvements de stock</p>
+<p>4. <strong>2025-05-06</strong> : Médias et paramètres</p>
+<p>5. <strong>2025-10-11</strong> : Matériel et réparations</p>
+<p>6. <strong>2026-01-02</strong> : Devis de tuyauterie, personnels, affaires</p>
+<p>7. <strong>2026-03</strong> : Suivi d'affaires</p>
+
+<p>---</p>
+
+<h2>Sécurité</h2>
+
+<h3>Mesures de sécurité implémentées</h3>
+
+<p>1. <strong>Authentification</strong> : Laravel Breeze (session-based)</p>
+<p>2. <strong>Autorisation</strong> : Système de rôles et permissions personnalisé</p>
+<p>3. <strong>CSRF Protection</strong> : Tokens CSRF sur tous les formulaires</p>
+<p>4. <strong>XSS Protection</strong> : Middleware </code>XSSProtection<code> personnalisé</p>
+<p>5. <strong>SQL Injection</strong> : Utilisation exclusive d'Eloquent ORM</p>
+<p>6. <strong>Validation</strong> : Validation stricte de toutes les entrées</p>
+<p>7. <strong>Hash des mots de passe</strong> : Bcrypt</p>
+<p>8. <strong>HTTPS</strong> : Recommandé en production</p>
+
+<h3>Middleware de sécurité</h3>
+
+</code>`<code>php
+<p>// app/Http/Middleware/XSSProtection.php</p>
+<p>// Nettoie les inputs pour prévenir les attaques XSS</p>
+</code>`<code>
+
+<h3>Permissions et accès</h3>
+
+<p>Toutes les routes sensibles sont protégées par :</p>
+<ul><li>Middleware </code>auth<code> (authentification obligatoire)</li>
+<li>Middleware </code>permission<code> (vérification des droits)</li></ul>
+
+<p>---</p>
+
+<h2>Performance</h2>
+
+<h3>Optimisations implémentées</h3>
+
+<p>1. <strong>Eager Loading</strong> : Utilisation systématique de </code>with()<code> pour éviter le problème N+1</p>
+<p>2. <strong>Cache</strong> : Configuration de cache Redis/Memcached recommandée</p>
+<p>3. <strong>Queue</strong> : Tâches lourdes en arrière-plan (emails, PDF)</p>
+<p>4. <strong>Indexes</strong> : Indexes sur les clés étrangères et champs fréquemment recherchés</p>
+<p>5. <strong>Pagination</strong> : Pagination de toutes les listes longues</p>
+
+<h3>Configuration recommandée en production</h3>
+
+<strong>File </code>.env<code></strong> :
+</code>`<code>ini
+<p>APP_ENV=production</p>
+<p>APP_DEBUG=false</p>
+<p>CACHE_DRIVER=redis</p>
+<p>SESSION_DRIVER=redis</p>
+<p>QUEUE_CONNECTION=redis</p>
+</code>`<code>
+
+<strong>Serveur</strong> :
+<ul><li>Nginx avec PHP-FPM</li>
+<li>PostgreSQL avec tuning approprié</li>
+<li>Redis pour cache et sessions</li>
+<li>Supervisor pour les queues</li></ul>
+
+<p>---</p>
+
+<h2>Annexes</h2>
+
+<h3>Diagramme ERD simplifié</h3>
+
+</code>`<code>
+<p>┌──────────┐       ┌──────────┐       ┌──────────┐</p>
+<p>│  User    │1─────</em>│Personnel │<em>─────</em>│ Affaire  │</p>
+<p>└──────────┘       └──────────┘       └────┬─────┘</p>
+<p>                                            │</p>
+<p>                   ┌────────────────────────┼────────────────────┐</p>
+<p>                   │                        │                    │</p>
+<p>                   │                        │                    │</p>
+<p>              ┌────▼────┐            ┌─────▼─────┐       ┌──────▼──────┐</p>
+<p>              │   Cde   │            │    Ddp    │       │ DevisTuyau. │</p>
+<p>              └────┬────┘            └─────┬─────┘       └──────┬──────┘</p>
+<p>                   │                       │                    │</p>
+<p>              ┌────▼────┐            ┌─────▼─────┐       ┌──────▼──────┐</p>
+<p>              │CdeLigne │            │DdpLigne   │       │   Section   │</p>
+<p>              └────┬────┘            └─────┬─────┘       └──────┬──────┘</p>
+<p>                   │                       │                    │</p>
+<p>                   └──────────┬────────────┘             ┌──────▼──────┐</p>
+<p>                              │                          │    Ligne    │</p>
+<p>                        ┌─────▼─────┐                    └──────┬──────┘</p>
+<p>                        │  Matiere  │                           │</p>
+<p>                        └─────┬─────┘                           │</p>
+<p>                              │                                 │</p>
+<p>                        ┌─────▼─────┐                           │</p>
+<p>                        │   Stock   │◄──────────────────────────┘</p>
+<p>                        └───────────┘</p>
+</code>`<code>
+
+<h3>Glossaire</h3>
+
+<p>| Terme | Signification |</p>
+<p>|-------|---------------|</p>
+<p>| <strong>CDE</strong> | Commande d'achat |</p>
+<p>| <strong>DDP</strong> | Demande de Prix (devis fournisseur) |</p>
+<p>| <strong>Affaire</strong> | Projet ou chantier |</p>
+<p>| <strong>Matière</strong> | Article, matière première, produit |</p>
+<p>| <strong>Entité</strong> | Entité juridique de l'entreprise |</p>
+<p>| <strong>Établissement</strong> | Site physique d'une société |</p>
+<p>| <strong>Stock</strong> | Quantité disponible d'une matière |</p>
+<p>| <strong>Mouvement</strong> | Entrée ou sortie de stock |</p>
+<p>| <strong>Personnel</strong> | Employé de l'entreprise |</p>
+<p>| <strong>Tâche</strong> | Tâche assignée à un personnel sur une affaire |</p>
+
+<h3>Contacts et support</h3>
+
+<ul><li><strong>Documentation utilisateur</strong> : Voir </code>DOCUMENTATION_COMPLETE.md<code></li>
+<li><strong>Documentation système de tâches</strong> : Voir </code>SYSTEME_TACHES.md<code></li>
+<li><strong>Tests de commandes</strong> : Voir </code>TESTS_COMMANDES.md<code></li>
+<li><strong>Import de matières</strong> : Voir </code>IMPORT_MATIERES.md`</li></ul>
+
+<p>---</p>
+
+<h2>Licence</h2>
+
+<p>Ce projet est propriétaire et confidentiel.</p>
+
+<strong>© 2024-2026 Atlantis Montaza - Tous droits réservés</strong>
+
+</body>
+</html>

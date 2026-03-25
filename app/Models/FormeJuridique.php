@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+
+class FormeJuridique extends Model
+{
+    /** @use HasFactory<\Database\Factories\FormeJuridiqueFactory> */
+    use HasFactory;
+
+    protected $fillable = ['code', 'nom'];
+
+    protected static function booted(): void
+    {
+        static::created(function ($model): void {
+            self::logChange($model, 'creating');
+        });
+
+        static::updating(function ($model): void {
+            self::logChange($model, 'updating');
+        });
+
+        static::deleting(function ($model): void {
+            self::logChange($model, 'deleting');
+        });
+    }
+
+    protected static function logChange(Model $model, string $event): void
+    {
+        ModelChange::create([
+            'user_id' => Auth::id(),
+            'model_type' => 'FormeJuridique',
+            'before' => $model->getOriginal(),
+            'after' => $model->getAttributes(),
+            'event' => $event,
+        ]);
+    }
+
+    public function societes()
+    {
+        return $this->hasMany(Societe::class, 'forme_juridique_id');
+    }
+}

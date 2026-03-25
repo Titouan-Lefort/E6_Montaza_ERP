@@ -1,0 +1,120 @@
+<x-app-layout>
+    @section('title', 'Créer un Dossier de Devis')
+    <x-slot name="header">
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                Créer un Dossier de Devis
+            </h2>
+            <a href="{{ route('dossiers_devis.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Retour
+            </a>
+        </div>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <form method="POST" action="{{ route('dossiers_devis.store') }}" class="bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
+                @csrf
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Code -->
+                    <div>
+                        <x-input-label for="code" value="Code" />
+                        <x-text-input id="code" name="code" type="text" class="mt-1 block w-full" :value="old('code', $code)" required readonly />
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Généré automatiquement</p>
+                        @error('code')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Nom -->
+                    <div>
+                        <x-input-label for="nom" value="Nom du dossier" />
+                        <x-text-input id="nom" name="nom" type="text" class="mt-1 block w-full" :value="old('nom')" required autofocus />
+                        @error('nom')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Date de création -->
+                    <div>
+                        <x-input-label for="date_creation" value="Date de création" />
+                        <x-text-input id="date_creation" name="date_creation" type="date" class="mt-1 block w-full" :value="old('date_creation', date('Y-m-d'))" required />
+                        @error('date_creation')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Affaire -->
+                    <div>
+                        <x-input-label for="affaire_id" value="Affaire (optionnel)" />
+                        <select id="affaire_id" name="affaire_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-blue-500 focus:ring">
+                            <option value="">-- Aucune affaire --</option>
+                            @foreach($affaires as $affaire)
+                                <option value="{{ $affaire->id }}" {{ old('affaire_id', $affaire_id) == $affaire->id ? 'selected' : '' }}>
+                                    {{ $affaire->code }} - {{ $affaire->nom }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('affaire_id')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Client -->
+                    <div>
+                        <x-input-label for="societe_id" value="Client (optionnel)" />
+                        <select id="societe_id" name="societe_id" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-blue-500 focus:ring">
+                            <option value="">-- Aucun client --</option>
+                            @foreach($societes as $societe)
+                                <option value="{{ $societe->id }}" {{ old('societe_id') == $societe->id ? 'selected' : '' }}>
+                                    {{ $societe->nom }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('societe_id')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Référence projet -->
+                    <div>
+                        <x-input-label for="reference_projet" value="Référence projet (optionnel)" />
+                        <x-text-input id="reference_projet" name="reference_projet" type="text" class="mt-1 block w-full" :value="old('reference_projet')" />
+                        @error('reference_projet')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Lieu d'intervention -->
+                    <div>
+                        <x-input-label for="lieu_intervention" value="Lieu d'intervention (optionnel)" />
+                        <x-text-input id="lieu_intervention" name="lieu_intervention" type="text" class="mt-1 block w-full" :value="old('lieu_intervention')" />
+                        @error('lieu_intervention')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Description -->
+                    <div class="md:col-span-2">
+                        <x-input-label for="description" value="Description (optionnel)" />
+                        <textarea id="description" name="description" rows="4" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-blue-500 focus:ring">{{ old('description') }}</textarea>
+                        @error('description')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-end gap-3">
+                    <a href="{{ route('dossiers_devis.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-300 dark:bg-gray-700 border border-transparent rounded-md font-semibold text-xs text-gray-800 dark:text-gray-200 uppercase tracking-widest hover:bg-gray-400 dark:hover:bg-gray-600 transition">
+                        Annuler
+                    </a>
+                    <x-primary-button>
+                        Créer le dossier
+                    </x-primary-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</x-app-layout>

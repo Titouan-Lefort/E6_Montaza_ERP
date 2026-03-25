@@ -1,0 +1,15 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - app/
+
+    level: 8
+
+    excludePaths:
+        - %currentWorkingDirectory%/app/Http/Controllers/Auth/VerifyEmailController.php
+        - %currentWorkingDirectory%/app/Http/Requests/Auth/LoginRequest.php
+        - %currentWorkingDirectory%/app/Http/Requests/ProfileUpdateRequest.php
+        - %currentWorkingDirectory%/app/resources/views/components/*
+

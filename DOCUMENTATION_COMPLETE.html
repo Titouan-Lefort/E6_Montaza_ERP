@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Utilisateur Complète - Montaza ERP</title>
+    <style>
+        @page {
+            margin: 2cm;
+            size: A4;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        
+        h1 {
+            color: #1a5490;
+            border-bottom: 3px solid #1a5490;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            page-break-before: always;
+        }
+        
+        h1:first-of-type {
+            page-break-before: auto;
+        }
+        
+        h2 {
+            color: #2563eb;
+            margin-top: 30px;
+            border-left: 4px solid #2563eb;
+            padding-left: 15px;
+        }
+        
+        h3 {
+            color: #4b5563;
+            margin-top: 20px;
+        }
+        
+        code {
+            background-color: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background-color: #1f2937;
+            color: #f3f4f6;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            page-break-inside: avoid;
+        }
+        
+        pre code {
+            background-color: transparent;
+            color: #f3f4f6;
+            padding: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        
+        th, td {
+            border: 1px solid #d1d5db;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #1a5490;
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 5px 0;
+        }
+        
+        .cover {
+            text-align: center;
+            padding: 100px 0;
+            page-break-after: always;
+        }
+        
+        .cover h1 {
+            font-size: 3em;
+            border: none;
+            margin-top: 50px;
+            page-break-before: auto;
+        }
+        
+        .cover .subtitle {
+            font-size: 1.5em;
+            color: #6b7280;
+            margin: 20px 0;
+        }
+        
+        .cover .date {
+            color: #9ca3af;
+            margin-top: 50px;
+        }
+        
+        .toc {
+            page-break-after: always;
+        }
+        
+        .toc h2 {
+            border: none;
+            color: #1a5490;
+        }
+        
+        .toc ul {
+            list-style: none;
+        }
+        
+        .toc a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .note {
+            background-color: #dbeafe;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        
+        .warning {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        
+        .success {
+            background-color: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 20px 0;
+            page-break-inside: avoid;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            a {
+                color: #000;
+                text-decoration: none;
+            }
+            
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page de couverture -->
+    <div class="cover">
+        <h1>Documentation Utilisateur Complète</h1>
+        <div class="subtitle">Montaza - Système de Gestion ERP</div>
+        <div class="date">
+            <p><strong>Version:</strong> 1.0</p>
+            <p><strong>Date:</strong> 24 Mars 2026</p>
+            <p><strong>Application:</strong> Montaza ERP</p>
+        </div>
+    </div>
+    
+    <!-- Table des matières -->
+    <div class="toc">
+        <h2>Table des Matières</h2>
+        <ul>
+            <li><a href="#overview">1. Vue d'ensemble de l'application</a></li>
+            <li><a href="#installation">2. Installation et Configuration</a></li>
+            <li><a href="#features">3. Fonctionnalités Principales</a></li>
+            <li><a href="#tasks">4. Système de Gestion des Tâches</a></li>
+            <li><a href="#quotes">5. Gestion des Devis et Affaires</a></li>
+            <li><a href="#faq">6. Questions Fréquentes</a></li>
+        </ul>
+    </div>
+    
+    <!-- Vue d'ensemble -->
+    <h1 id="overview">Vue d'ensemble de l'application</h1>
+    
+    <p>Montaza est une application web de gestion d'entreprise (ERP) développée avec Laravel. Elle permet de gérer les commandes, les demandes de prix, les affaires, les stocks de matières premières, les sociétés partenaires et les réparations.</p>
+    
+    <h2>Fonctionnalités Principales</h2>
+    
+    <h3>Gestion Commerciale</h3>
+    <ul>
+        <li><strong>Commandes (CDE)</strong> : Création, suivi, validation et génération de PDF.</li>
+        <li><strong>Demandes de Prix (DDP)</strong> : Gestion des demandes fournisseurs.</li>
+        <li><strong>Affaires</strong> : Suivi des projets et budgets associés.</li>
+    </ul>
+    
+    <h3>Gestion des Stocks & Articles</h3>
+    <ul>
+        <li><strong>Matières</strong> : Base de données des articles, familles, sous-familles et standards.</li>
+        <li><strong>Mouvements de Stock</strong> : Suivi des entrées/sorties.</li>
+    </ul>
+    
+    <h3>Tiers</h3>
+    <ul>
+        <li><strong>Sociétés</strong> : Clients, Fournisseurs, Sous-traitants.</li>
+        <li><strong>Contacts</strong> : Gestion des interlocuteurs par établissement.</li>
+    </ul>
+    
+    <h3>Atelier & SAV</h3>
+    <ul>
+        <li><strong>Réparations</strong> : Suivi des dossiers de réparation.</li>
+        <li><strong>Matériel</strong> : Parc matériel.</li>
+    </ul>
+    
+    <h3>Administration</h3>
+    <ul>
+        <li>Gestion des utilisateurs, rôles et permissions.</li>
+        <li>Configuration des entités et paramètres globaux.</li>
+    </ul>
+    
+    <!-- Installation -->
+    <h1 id="installation">Installation et Configuration</h1>
+    
+    <h2>Prérequis Technique</h2>
+    <ul>
+        <li>PHP 8.3+</li>
+        <li>Composer</li>
+        <li>Node.js & NPM</li>
+        <li>PostgreSQL</li>
+        <li>Serveur Web (Nginx/Apache) ou Laravel Homestead/Valet</li>
+        <li><code>wkhtmltopdf</code> (pour la génération des PDF)</li>
+    </ul>
+    
+    <h2>Installation</h2>
+    
+    <h3>1. Cloner le dépôt</h3>
+    <pre><code>git clone https://github.com/votre-utilisateur/montaza.git
+cd montaza</code></pre>
+    
+    <h3>2. Installer les dépendances</h3>
+    <pre><code>composer install
+npm install</code></pre>
+    
+    <h3>3. Configuration de l'environnement</h3>
+    <p>Copiez le fichier d'exemple et configurez votre base de données :</p>
+    <pre><code>cp .env.example .env
+php artisan key:generate</code></pre>
+    <p><em>Assurez-vous de configurer correctement la connexion PostgreSQL dans le fichier <code>.env</code>.</em></p>
+    
+    <h3>4. Base de données</h3>
+    <p>Exécutez les migrations et les seeders pour initialiser la base de données :</p>
+    <pre><code>php artisan migrate:fresh --seed</code></pre>
+    
+    <h3>5. Compilation des assets</h3>
+    <p>Pour le développement :</p>
+    <pre><code>npm run dev</code></pre>
+    <p>Pour la production :</p>
+    <pre><code>npm run build</code></pre>
+    
+    <h2>Comptes par défaut</h2>
+    <div class="note">
+        <strong>Administrateur :</strong>
+        <ul>
+            <li>Email : <code>admin@atlantismontaza.fr</code></li>
+            <li>Mot de passe : <code>Not24get</code></li>
+        </ul>
+        <strong>Autres utilisateurs :</strong>
+        <ul>
+            <li>Le seeder génère également des utilisateurs spécifiques (Goran, Sylvie, etc.) avec des mots de passe suivant le format <code>InitialeNomAnnée</code> (ex: <code>Gjosipovic2025</code>).</li>
+        </ul>
+    </div>
+    
+    <h2>Structure du Projet</h2>
+    <ul>
+        <li><strong>Backend</strong> : Laravel 12</li>
+        <li><strong>Frontend</strong> : Blade, Livewire, Tailwind CSS</li>
+        <li><strong>Base de données</strong> : PostgreSQL</li>
+    </ul>
+    
+    <h2>Commandes Utiles</h2>
+    <ul>
+        <li>Lancer le serveur de développement : <code>php artisan serve</code></li>
+        <li>Rafraîchir la base de données : <code>php artisan migrate:fresh --seed</code></li>
+    </ul>
+    
+    <!-- Système de Gestion des Tâches -->
+    <h1 id="tasks">Système de Gestion des Tâches</h1>
+    
+    <h2>Vue d'ensemble</h2>
+    <p>Un système complet de gestion des tâches a été ajouté pour les employés assignés aux affaires. Chaque employé peut avoir plusieurs tâches définies dans le cadre de son assignation à une affaire, avec un emploi du temps global.</p>
+    
+    <h2>Fonctionnalités</h2>
+    
+    <h3>1. Gestion des tâches par affaire</h3>
+    <p>Dans la <strong>page de détails d'une affaire</strong>, pour chaque employé assigné :</p>
+    <ul>
+        <li>Cliquez sur <strong>"Tâches"</strong> pour accéder à la gestion des tâches</li>
+        <li>Ajoutez des tâches avec :
+            <ul>
+                <li>Titre et description</li>
+                <li>Date de début et de fin</li>
+                <li>Statut (À faire, En cours, Terminé)</li>
+                <li>Priorité (Basse, Normale, Haute)</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <h3>2. Emploi du temps de l'employé</h3>
+    <p>Dans la <strong>page de profil d'un employé</strong> :</p>
+    <ul>
+        <li>Bouton <strong>"📅 Emploi du temps"</strong> en haut de la page</li>
+        <li>Vision chronologique de toutes les affaires et tâches</li>
+        <li>Statistiques :
+            <ul>
+                <li>Nombre d'affaires assignées</li>
+                <li>Tâches totales</li>
+                <li>Tâches en cours</li>
+                <li>Tâches terminées</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <h3>3. Liste des affaires dans le profil</h3>
+    <p>Une nouvelle section <strong>"Affaires assignées"</strong> affiche :</p>
+    <ul>
+        <li>Code et nom de l'affaire</li>
+        <li>Rôle de l'employé</li>
+        <li>Période d'assignation</li>
+        <li>Statut de l'affaire</li>
+        <li>Nombre de tâches</li>
+        <li>Lien direct vers la gestion des tâches</li>
+    </ul>
+    
+
+    
+    <h2>Utilisation</h2>
+    
+    <h3>Ajouter des tâches à un employé</h3>
+    <ol>
+        <li>Aller sur la page de l'affaire</li>
+        <li>Dans "Personnel Assigné", cliquer sur "Tâches" pour l'employé</li>
+        <li>Cliquer sur "Ajouter une tâche"</li>
+        <li>Remplir le formulaire et valider</li>
+    </ol>
+    
+    <h3>Consulter l'emploi du temps</h3>
+    <ol>
+        <li>Aller sur le profil de l'employé</li>
+        <li>Cliquer sur "📅 Emploi du temps"</li>
+        <li>Voir la chronologie complète avec statistiques</li>
+    </ol>
+    
+    <h3>Suivre l'avancement</h3>
+    <ul>
+        <li>Les tâches peuvent être mises à jour avec leur statut</li>
+        <li>L'emploi du temps affiche visuellement l'état d'avancement</li>
+        <li>Les statistiques donnent une vue d'ensemble rapide</li>
+    </ul>
+    
+    <div class="warning">
+        <strong>Notes importantes :</strong>
+        <ul>
+            <li>Les tâches sont supprimées automatiquement si l'employé est désassigné de l'affaire (CASCADE)</li>
+            <li>Les dates des tâches peuvent déborder de la période d'assignation</li>
+            <li>La priorité "haute" est mise en évidence avec un badge rouge</li>
+            <li>Les tâches terminées ont une coche verte dans l'emploi du temps</li>
+        </ul>
+    </div>
+    
+    <!-- Gestion des Devis et Affaires -->
+    <h1 id="quotes">Gestion des Devis et Affaires</h1>
+    
+    <h2>Schéma de Liaison : Devis Tuyauterie ↔ Affaires</h2>
+    
+    <h3>Vue d'ensemble de la relation</h3>
+    <pre><code>┌─────────────────────────────────────┐
+│         AFFAIRES                     │
+│  (Projets / Chantiers)              │
+├─────────────────────────────────────┤
+│ • id (PK)                           │
+│ • code (ex: 26-001)                 │
+│ • nom                               │
+│ • statut                            │
+│ • budget                            │
+│ • total_ht                          │
+│ • date_debut                        │
+│ • date_fin_prevue                   │
+└──────────────┬──────────────────────┘
+               │
+               │ Une affaire peut avoir plusieurs :
+               ├─────────────────────────────────────┐
+               │                                     │
+               │                                     │
+       ┌───────▼────────┐                   ┌───────▼────────┐
+       │  COMMANDES     │                   │  DEVIS         │
+       │  (Cde)         │                   │  TUYAUTERIE    │
+       ├────────────────┤                   ├────────────────┤
+       │ • id           │                   │ • id           │
+       │ • affaire_id   │◄──────┐           │ • affaire_id   │
+       │ • code         │       │           │ • reference    │
+       │ • total_ht     │       │           │ • total_ttc    │
+       └────────────────┘       │           └────────────────┘
+                                │
+                                │
+                       ┌────────▼────────┐
+                       │  DEMANDES DE    │
+                       │  PRIX (DDP)     │
+                       ├─────────────────┤
+                       │ • id            │
+                       │ • affaire_id    │
+                       │ • code          │
+                       └─────────────────┘</code></pre>
+    
+
+    
+    <h2>Flux de données</h2>
+    
+    <pre><code>1. CRÉATION D'UNE AFFAIRE
+   ↓
+   Affaire 26-001 "Rénovation Ligne Vapeur"
+   
+2. CRÉATION DE DEVIS LIÉS À L'AFFAIRE
+   ↓
+   ┌─────────────────────────────────────┐
+   │ Devis 1: Préfabrication atelier     │
+   │ affaire_id = 26-001                 │
+   │ total_ttc = 25,000 €                │
+   └─────────────────────────────────────┘
+   
+   ┌─────────────────────────────────────┐
+   │ Devis 2: Installation sur site      │
+   │ affaire_id = 26-001                 │
+   │ total_ttc = 18,000 €                │
+   └─────────────────────────────────────┘
+
+3. CRÉATION DE COMMANDES FOURNISSEURS
+   ↓
+   ┌─────────────────────────────────────┐
+   │ CDE-26-0045                         │
+   │ affaire_id = 26-001                 │
+   │ total_ht = 15,000 €                 │
+   └─────────────────────────────────────┘
+
+4. SUIVI GLOBAL DANS L'AFFAIRE
+   ↓
+   Vue consolidée:
+   - Budget: 50,000 €
+   - Devis émis: 43,000 € TTC
+   - Commandes: 15,000 € HT
+   - Matériel assigné: 3 items</code></pre>
+    
+    <h2>Utilisation de l'interface</h2>
+    
+    <h3>1. Page AFFAIRE</h3>
+    <pre><code>┌──────────────────────────────────────────────────┐
+│ Affaire 26-001: Rénovation Ligne Vapeur         │
+│ Budget: 50,000 € | Engagé: 15,000 €             │
+├──────────────────────────────────────────────────┤
+│                                                  │
+│ COMMANDES (3)          DEVIS TUYAUTERIE (2)    │
+│ • CDE-26-0045           • Préfabrication        │
+│   15,000 €               25,000 € TTC          │
+│                          08/02/2026             │
+│ • CDE-26-0046                                  │
+│   8,500 €              • Installation          │
+│                          18,000 € TTC          │
+│                          10/02/2026             │
+└──────────────────────────────────────────────────┘</code></pre>
+    
+    <h3>2. Formulaire DEVIS</h3>
+    <pre><code>┌──────────────────────────────────────────────┐
+│ Créer un devis de tuyauterie                 │
+├──────────────────────────────────────────────┤
+│                                              │
+│ Affaire liée (optionnel)                    │
+│ [▼ Sélectionner une affaire      ]          │
+│    ├─ 26-001 - Rénovation Vapeur            │
+│    ├─ 26-002 - Extension Usine              │
+│    └─ 25-045 - Maintenance annuelle         │
+│                                              │
+│ Référence Projet                            │
+│ [Préfabrication Ligne 4          ]          │
+│                                              │
+│ Client                                      │
+│ [▼ ACME Corporation              ]          │
+│                                              │
+└──────────────────────────────────────────────┘</code></pre>
+    
+    <div class="success">
+        <strong>Avantages de cette liaison :</strong>
+        <ul>
+            <li>✅ <strong>Traçabilité</strong> : Voir tous les devis liés à un projet</li>
+            <li>✅ <strong>Suivi financier</strong> : Comparaison budget vs devis émis</li>
+            <li>✅ <strong>Organisation</strong> : Regroupement logique par chantier</li>
+            <li>✅ <strong>Reporting</strong> : Statistiques par affaire</li>
+            <li>✅ <strong>Optionnel</strong> : Les devis peuvent exister sans affaire (colonne nullable)</li>
+        </ul>
+    </div>
+    
+    <!-- Questions Fréquentes -->
+    <h1 id="faq">Questions Fréquentes</h1>
+    
+    <h2>Gestion des Utilisateurs</h2>
+    
+    <h3>Comment ajouter un nouvel utilisateur ?</h3>
+    <ol>
+        <li>Connectez-vous avec un compte administrateur</li>
+        <li>Accédez au menu "Administration"</li>
+        <li>Cliquez sur "Utilisateurs"</li>
+        <li>Utilisez le bouton "Nouvel utilisateur"</li>
+        <li>Remplissez les informations requises et attribuez les rôles appropriés</li>
+    </ol>
+    
+    <h3>Comment modifier les permissions d'un utilisateur ?</h3>
+    <ol>
+        <li>Accédez à la liste des utilisateurs</li>
+        <li>Cliquez sur l'utilisateur concerné</li>
+        <li>Modifiez ses rôles ou permissions</li>
+        <li>Enregistrez les modifications</li>
+    </ol>
+    
+    <h2>Gestion des Affaires</h2>
+    
+    <h3>Comment créer une nouvelle affaire ?</h3>
+    <ol>
+        <li>Accédez au menu "Affaires"</li>
+        <li>Cliquez sur "Nouvelle affaire"</li>
+        <li>Remplissez les informations requises :
+            <ul>
+                <li>Code de l'affaire</li>
+                <li>Nom/Description</li>
+                <li>Budget prévisionnel</li>
+                <li>Dates de début et fin prévue</li>
+            </ul>
+        </li>
+        <li>Enregistrez l'affaire</li>
+    </ol>
+    
+    <h3>Comment attribuer du personnel à une affaire ?</h3>
+    <ol>
+        <li>Ouvrez la fiche de l'affaire</li>
+        <li>Dans la section "Personnel Assigné", cliquez sur "Ajouter du personnel"</li>
+        <li>Sélectionnez l'employé</li>
+        <li>Définissez son rôle et la période d'assignation</li>
+        <li>Validez</li>
+    </ol>
+    
+    <h2>Gestion des Commandes</h2>
+    
+    <h3>Comment créer une commande ?</h3>
+    <ol>
+        <li>Accédez au menu "Commandes"</li>
+        <li>Cliquez sur "Nouvelle commande"</li>
+        <li>Sélectionnez l'affaire liée (si applicable)</li>
+        <li>Ajoutez les lignes de commande avec les articles</li>
+        <li>Validez la commande</li>
+    </ol>
+    
+    <h3>Comment générer un PDF de commande ?</h3>
+    <ol>
+        <li>Ouvrez la commande concernée</li>
+        <li>Cliquez sur le bouton "Générer PDF"</li>
+        <li>Le PDF s'ouvrira automatiquement ou sera téléchargé</li>
+    </ol>
+    
+    <h2>Gestion des Devis</h2>
+    
+    <h3>Comment créer un devis de tuyauterie ?</h3>
+    <ol>
+        <li>Accédez au menu "Devis Tuyauterie"</li>
+        <li>Cliquez sur "Nouveau devis"</li>
+        <li>Sélectionnez optionnellement l'affaire liée</li>
+        <li>Remplissez les informations projet et client</li>
+        <li>Ajoutez les lignes de devis</li>
+        <li>Générez le PDF du devis</li>
+    </ol>
+    
+    <h3>Comment lier un devis à une affaire ?</h3>
+    <ol>
+        <li>Lors de la création ou modification d'un devis</li>
+        <li>Utilisez le champ "Affaire liée"</li>
+        <li>Sélectionnez l'affaire dans la liste déroulante</li>
+        <li>Le devis apparaîtra automatiquement dans la fiche de l'affaire</li>
+    </ol>
+    
+    <h2>Gestion du Stock</h2>
+    
+    <h3>Comment ajouter une matière au stock ?</h3>
+    <ol>
+        <li>Accédez au menu "Matières"</li>
+        <li>Cliquez sur "Nouvelle matière"</li>
+        <li>Remplissez les informations (famille, sous-famille, désignation)</li>
+        <li>Enregistrez</li>
+    </ol>
+    
+    <h3>Comment suivre les mouvements de stock ?</h3>
+    <ol>
+        <li>Accédez au menu "Mouvements de Stock"</li>
+        <li>Filtrez par date, type de mouvement (entrée/sortie), ou matière</li>
+        <li>Consultez l'historique complet des mouvements</li>
+    </ol>
+    
+    <h2>Support Technique</h2>
+    
+    <h3>Que faire en cas de problème ?</h3>
+    <ol>
+        <li>Vérifiez d'abord cette documentation</li>
+        <li>Consultez les fichiers README du projet</li>
+        <li>Contactez l'équipe de développement avec une description précise du problème</li>
+    </ol>
+    
+    <h2>Support et Contact</h2>
+    <p>Pour toute question ou problème technique, veuillez contacter l'équipe de développement.</p>
+    
+    <hr>
+    <p style="text-align: center; color: #6b7280; margin-top: 50px;">
+        <strong>Fin de la documentation</strong>
+    </p>
+    
+    <div class="no-print" style="position: fixed; bottom: 20px; right: 20px; background: #2563eb; color: white; padding: 15px 25px; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" onclick="window.print()">
+        📄 Imprimer en PDF
+    </div>
+</body>
+</html>
