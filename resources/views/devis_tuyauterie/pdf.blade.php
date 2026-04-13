@@ -213,6 +213,9 @@
             @if($devis->lieu_intervention)
                 <strong>Lieu d'intervention :</strong> {{ $devis->lieu_intervention }}<br>
             @endif
+            @if($devis->chargesAffaire->isNotEmpty())
+                <strong>Chargé d'affaires :</strong> {{ $devis->chargesAffaire->first()->first_name }} {{ $devis->chargesAffaire->first()->last_name }}<br>
+            @endif
             @if($devis->duree_validite)
                 <strong>Validité :</strong> {{ $devis->duree_validite }} jours<br>
             @endif

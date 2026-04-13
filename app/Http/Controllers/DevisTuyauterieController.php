@@ -15,14 +15,14 @@ class DevisTuyauterieController extends Controller
     public function index()
     {
         // Récupérer les devis actifs triés par date d'émission décroissante
-        $devis = DevisTuyauterie::where('is_archived', false)->orderBy('date_emission', 'desc')->get();
+        $devis = DevisTuyauterie::with('chargesAffaire')->where('is_archived', false)->orderBy('date_emission', 'desc')->get();
         return view('devis_tuyauterie.index', compact('devis'));
     }
 
     public function archives()
     {
         // Récupérer les devis archivés
-        $devis = DevisTuyauterie::where('is_archived', true)->orderBy('date_emission', 'desc')->get();
+        $devis = DevisTuyauterie::with('chargesAffaire')->where('is_archived', true)->orderBy('date_emission', 'desc')->get();
         return view('devis_tuyauterie.archives', compact('devis'));
     }
 
@@ -61,13 +61,13 @@ class DevisTuyauterieController extends Controller
 
     public function show($id)
     {
-        $devis = DevisTuyauterie::with(['sections.lignes'])->findOrFail($id);
+        $devis = DevisTuyauterie::with(['sections.lignes', 'chargesAffaire'])->findOrFail($id);
         return view('devis_tuyauterie.show', compact('devis'));
     }
 
     public function pdf($id)
     {
-        $devis = DevisTuyauterie::with(['sections.lignes'])->findOrFail($id);
+        $devis = DevisTuyauterie::with(['sections.lignes', 'chargesAffaire'])->findOrFail($id);
         $entite = Entite::first();
 
         $pdf = app('dompdf.wrapper');
@@ -85,7 +85,7 @@ class DevisTuyauterieController extends Controller
 
     public function preview($id)
     {
-        $devis = DevisTuyauterie::findOrFail($id);
+        $devis = DevisTuyauterie::with('chargesAffaire')->findOrFail($id);
         return view('devis_tuyauterie.preview', compact('devis'));
     }
 

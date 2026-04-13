@@ -7,6 +7,8 @@ use App\Models\Societe;
 use App\Models\SocieteContact;
 use App\Models\DevisTuyauterie;
 use App\Models\Matiere;
+use App\Models\User;
+use App\Models\Role;
 
 class DevisTuyauterieForm extends Component
 {
@@ -25,6 +27,8 @@ class DevisTuyauterieForm extends Component
     public $duree_validite = 30; // 30 jours par défaut (acier volatile)
 
     public $contacts = [];
+    public $chargeAffaireId = null; // ID du chargé d'affaires sélectionné
+    public $availableChargesAffaire = []; // Utilisateurs avec le rôle "Chargé d'affaires"
 
     // 2. Corps du Devis (Sections et Lignes)
     public $sections = [
@@ -128,12 +132,24 @@ class DevisTuyauterieForm extends Component
                 }
             }
 
+            // Charger le chargé d'affaires assigné (prendre le premier)
+            $this->chargeAffaireId = $devis->chargesAffaire->first()?->id;
+
         } else {
             // Nouveau devis : initialiser avec affaire_id si passé en paramètre
             $this->date_emission = now()->format('Y-m-d');
             if ($affaire_id) {
                 $this->affaire_id = $affaire_id;
             }
+        }
+
+        // Charger les utilisateurs avec le rôle "Chargé d'affaires"
+        $roleChargeAffaire = Role::where('name', 'Chargé d\'affaires')->first();
+        if ($roleChargeAffaire) {
+            $this->availableChargesAffaire = User::where('role_id', $roleChargeAffaire->id)
+                ->whereNull('deleted_at')
+                ->get()
+                ->toArray();
         }
 
         $this->calculateTotals();
@@ -290,6 +306,7 @@ class DevisTuyauterieForm extends Component
             'reference_projet' => 'required|string|max:255',
             'client_nom' => 'required|string|max:255',
             'date_emission' => 'required|date',
+            'chargeAffaireId' => 'required|exists:users,id',
             'sections' => 'required|array|min:1',
             'sections.*.titre' => 'required|string',
             'sections.*.lignes.*.designation' => 'required|string',
@@ -363,6 +380,9 @@ class DevisTuyauterieForm extends Component
                     ]);
                 }
             }
+
+            // Synchroniser le chargé d'affaires
+            $devis->chargesAffaire()->sync([$this->chargeAffaireId]);
 
             // Mise à jour de l'instance pour éviter bugs si on reste sur la page (mais on redirect)
             if (!$this->devis) {

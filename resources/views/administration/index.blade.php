@@ -9,33 +9,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex justify-center">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xs sm:rounded-lg p-4 flex flex-wrap gap-4">
-                @can('gerer_les_utilisateurs')
-                    <a href="{{ route('profile.index') }}" class="flex p-6 text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 w-96 h-auto rounded-md cursor-pointer transition-all hover:scale-105 hover:bg-gray-200 dark:hover:bg-gray-700">
-                        <x-icons.group class="w-12 h-12 mr-2 fill-gray-400 dark:fill-gray-100" />
-                        <div class=" flex flex-col justify-between">
-                            <h1 class="text-3xl font-bold mb-6 text-left">{{ __('Utilisateurs') }}</h1>
-                            <p class=" p-1 rounded-sm">{{ __('Gérer les utilisateurs') }}</p>
-                        </div>
-                    </a>
-                @endcan
-                @can('gerer_les_utilisateurs')
-                    <a href="{{ route('personnel.index') }}" class="flex p-6 text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 w-96 h-auto rounded-md cursor-pointer transition-all hover:scale-105 hover:bg-gray-200 dark:hover:bg-gray-700">
-                        <x-icons.group class="w-12 h-12 mr-2 fill-gray-400 dark:fill-gray-100" />
-                        <div class=" flex flex-col justify-between">
-                            <h1 class="text-3xl font-bold mb-6 text-left">{{ __('Personnel') }}</h1>
-                            <p class=" p-1 rounded-sm">{{ __('Gérer le personnel de l\'entreprise') }}</p>
-                        </div>
-                    </a>
-                @endcan
-                @can('gerer_les_permissions')
-                    <a href="{{ route('permissions') }}" class="flex p-6 text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 w-96 h-auto rounded-md cursor-pointer transition-all hover:scale-105 hover:bg-gray-200 dark:hover:bg-gray-700">
-                        <x-icons.key class="w-12 h-12 mr-2 fill-gray-400 dark:fill-gray-100" />
-                        <div class=" flex flex-col justify-between">
-                            <h1 class="text-3xl font-bold mb-6 text-left">{{ __('Permissions et Postes') }}</h1>
-                            <p class=" p-1 rounded-sm">{{ __('Gérer les permissions et les postes') }}</p>
-                        </div>
-                    </a>
-                @endcan
+                {{-- Boutons pour utilisateurs, personnel et permissions supprimés --}}
                 @can('voir_historique')
                     <a href="{{ route('model_changes.index') }}" class="flex p-6 text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 w-96 h-auto rounded-md cursor-pointer transition-all hover:scale-105 hover:bg-gray-200 dark:hover:bg-gray-700">
                         <x-icons.history class="w-12 h-12 mr-2 fill-gray-400 dark:fill-gray-100" />
@@ -99,6 +73,13 @@
                         </div>
                     </a>
                 @endcan
+                <a href="{{ route('administration.charges-affaires.index') }}" class="flex p-6 text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 w-96 h-auto rounded-md cursor-pointer transition-all hover:scale-105 hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <x-icons.group class="w-12 h-12 mr-2 fill-gray-400 dark:fill-gray-100" />
+                    <div class=" flex flex-col justify-between">
+                        <h1 class="text-3xl font-bold mb-6 text-left">{{ __('Chargé d\'affaires') }}</h1>
+                        <p class=" p-1 rounded-sm">{{ __('Gérer les chargés d\'affaires') }}</p>
+                    </div>
+                </a>
                 <a href="{{ route('administration.icons') }}" class="flex p-6 text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-900 w-96 h-auto rounded-md cursor-pointer transition-all hover:scale-105 hover:bg-gray-200 dark:hover:bg-gray-700">
                     <x-icons.settings class="w-12 h-12 mr-2 fill-gray-400 dark:fill-gray-100" />
                     <div class=" flex flex-col justify-between">

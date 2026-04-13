@@ -46,4 +46,10 @@ class DevisTuyauterie extends Model
     {
         return $this->hasMany(DevisStockReservation::class);
     }
+
+    public function chargesAffaire()
+    {
+        return $this->belongsToMany(User::class, 'charge_affaire_devis', 'devis_id', 'user_id')
+            ->withTimestamps();
+    }
 }

@@ -51,6 +51,9 @@ Route::get('/dashboard/paillettes', function () {
 Route::middleware(['GetGlobalVariable', 'XSSProtection', 'auth'])->group(function () {
 
     Route::get('/administration', [AdministrationController::class, 'index'])->name('administration.index');
+    Route::get('/administration/charges-affaires', function () {
+        return view('administration.charges_affaires.index');
+    })->name('administration.charges-affaires.index');
     Route::get('/administration/info', [AdministrationController::class, 'info'])->name('administration.info');
     Route::get('/icons', function () {
         return view('administration.icons');

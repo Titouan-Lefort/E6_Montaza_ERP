@@ -16,13 +16,7 @@
     @endif
 
     <div class="mt-4 sm:mt-0 flex flex-col sm:flex-row items-start sm:items-center">
-        @if (Auth::user()->hasPermission('gerer_les_postes'))
-        <button type="button" class="btn mb-4" x-data=""
-            x-on:click.prevent="$dispatch('open-modal', 'create-role-modal')">
-            Créer un Poste
-        </button>
-    @endif
-
+        {{-- Bouton "Créer un Poste" retiré --}}
         <x-modals.create_role :entites="$entites" />
     </div>
 </div>

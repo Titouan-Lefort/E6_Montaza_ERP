@@ -39,9 +39,7 @@
                         {{ __('Rechercher') }}
                     </button>
                 </form>
-                <a href="{{ route('register') }}" class="btn sm:ml-4">
-                    {{ __('Créer un utilisateur') }}
-                </a>
+                {{-- Bouton "Créer un utilisateur" retiré --}}
             </div>
         </div>
     </x-slot>
@@ -120,21 +118,7 @@
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            @if ($user->deleted_at)
-                                                <form method="GET" action="{{ route('profile.restore', $user) }}"
-                                                    class="inline-block">
-                                                    @csrf
-                                                    @method('GET')
-                                                    <button type="submit"
-                                                        class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-600"><x-icon
-                                                            size="2" type="restore" class="icons ml-2" /></button>
-                                                </form>
-                                            @else
-                                                <a href="{{ route('profile.edit', ['id' => $user]) }}" class=""
-                                                    title="modfier">
-                                                    <x-icon size="2" type="edit" class="icons ml-2" />
-                                                </a>
-                                            @endif
+                                            {{-- Boutons d'actions retirés --}}
                                         </td>
 
                                     </tr>

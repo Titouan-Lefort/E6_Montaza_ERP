@@ -77,6 +77,21 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Chargé d'affaires -->
+            <div class="md:col-span-2">
+                <x-input-label for="chargeAffaireId" :value="__('Chargé d\'affaires *')" help="Sélectionner le chargé d'affaires responsable de ce devis" />
+                <select id="chargeAffaireId" wire:model="chargeAffaireId" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                    <option value="">-- Sélectionner un chargé d'affaires --</option>
+                    @foreach($availableChargesAffaire as $user)
+                        <option value="{{ $user['id'] }}">{{ $user['first_name'] }} {{ $user['last_name'] }}</option>
+                    @endforeach
+                </select>
+                @error('chargeAffaireId') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                @if(count($availableChargesAffaire) === 0)
+                    <p class="text-sm text-red-600 mt-1">Aucun utilisateur avec le rôle "Chargé d'affaires" n'a été trouvé.</p>
+                @endif
+            </div>
         </div>
     </div>
 

@@ -57,6 +57,13 @@
                         @endif
                         <p class="text-gray-600 dark:text-gray-400"><span class="font-semibold">Référence Projet:</span> {{ $devis->reference_projet ?? 'N/A' }}</p>
                         <p class="text-gray-600 dark:text-gray-400"><span class="font-semibold">Lieu Intervention:</span> {{ $devis->lieu_intervention ?? 'N/A' }}</p>
+                        <p class="text-gray-600 dark:text-gray-400"><span class="font-semibold">Chargé d'affaires:</span>
+                            @if($devis->chargesAffaire->isNotEmpty())
+                                {{ $devis->chargesAffaire->first()->first_name }} {{ $devis->chargesAffaire->first()->last_name }}
+                            @else
+                                <span class="text-red-500">Non assigné</span>
+                            @endif
+                        </p>
                         <p class="text-gray-600 dark:text-gray-400"><span class="font-semibold">Date d'émission:</span> {{ $devis->date_emission ? \Carbon\Carbon::parse($devis->date_emission)->format('d/m/Y') : '-' }}</p>
                         <p class="text-gray-600 dark:text-gray-400"><span class="font-semibold">Validité:</span> {{ $devis->duree_validite }} jours (jusqu'au {{ $devis->date_emission ? \Carbon\Carbon::parse($devis->date_emission)->addDays($devis->duree_validite)->format('d/m/Y') : '-' }})</p>
                     </div>

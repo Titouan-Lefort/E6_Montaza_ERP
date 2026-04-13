@@ -44,9 +44,7 @@
                         {{ __('Rechercher') }}
                     </button>
                 </form>
-                <a href="{{ route('personnel.create') }}" class="btn sm:ml-4">
-                    {{ __('Ajouter un employé') }}
-                </a>
+                {{-- Bouton "Ajouter un employé" retiré --}}
             </div>
         </div>
     </x-slot>
@@ -165,34 +163,7 @@
                                         </td>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            @if (request()->get('show_deleted'))
-                                                <a href="{{ route('personnel.restore', $personnel->id) }}"
-                                                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-3"
-                                                    onclick="event.stopPropagation(); event.preventDefault(); if(confirm('Êtes-vous sûr de vouloir restaurer cet employé ?')) { document.getElementById('restore-form-{{ $personnel->id }}').submit(); }">
-                                                    Restaurer
-                                                </a>
-                                                <form id="restore-form-{{ $personnel->id }}"
-                                                    action="{{ route('personnel.restore', $personnel->id) }}"
-                                                    method="POST" style="display: none;">
-                                                    @csrf
-                                                </form>
-                                            @else
-                                                <a href="{{ route('personnel.edit', $personnel->id) }}"
-                                                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-3"
-                                                    onclick="event.stopPropagation();">
-                                                    Modifier
-                                                </a>
-                                                <form action="{{ route('personnel.destroy', $personnel->id) }}"
-                                                    method="POST" class="inline"
-                                                    onsubmit="event.stopPropagation(); return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
-                                                        Supprimer
-                                                    </button>
-                                                </form>
-                                            @endif
+                                            {{-- Boutons d'actions retirés --}}
                                         </td>
                                     </tr>
                                 @empty

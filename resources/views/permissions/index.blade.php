@@ -54,9 +54,7 @@
                                 @endforeach
                             </div>
                             <div class="mt-4">
-                                <button type="submit" class="btn">
-                                    Mettre à jour les permissions
-                                </button>
+                                {{-- Bouton "Mettre à jour les permissions" retiré --}}
                             </div>
                         </div>
                     </form>

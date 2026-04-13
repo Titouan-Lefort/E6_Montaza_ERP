@@ -39,8 +39,7 @@
                         <button class="btn mt-4" {{ $role->trashed() ? 'disabled' : '' }}>
                             {{ __('Modifier') }}
                         </button>
-
-
+                        {{-- Bouton "Modifier" retiré --}}
                     </form>
                 </div>
             </div>
@@ -79,18 +78,7 @@
                                         {{ $user->last_name }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                        <form action="{{ route('profile.update_admin') }}" method="post">
-                                            @csrf
-                                            @method('PATCH')
-                                            <div class="flex items-center">
-                                                <input type="hidden" name="id" value="{{ $user->id }}">
-                                                <x-select_id_role placeholder="changer le poste" :entites="$entites"
-                                                    class="block max-w-md select-left" />
-                                                <button type="submit" class="btn-select-right">
-                                                    <x-icon type="send" size="1" class=" icons-no_hover" />
-                                                </button>
-                                            </div>
-                                        </form>
+                                        {{-- Boutons pour changer le poste retirés --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -112,32 +100,7 @@
                             </p>
                         </header>
 
-                        <x-danger-button x-data="" class="mt-6"
-                            x-on:click.prevent="$dispatch('open-modal', 'confirm-role-activation')">{{ __('Activer') }}</x-danger-button>
-
-                        <x-modal name="confirm-role-activation" focusable>
-                            <form method="post" action="{{ route('roles.restore', ['role' => $role]) }}"
-                                class="p-6">
-                                @csrf
-                                @method('patch')
-                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                    {{ __('Êtes-vous sûr de vouloir activer ce poste') }}
-                                </h2>
-
-                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                    {{ $role->name }}
-                                </p>
-                                <div class="mt-6 flex justify-end">
-                                    <x-secondary-button x-on:click="$dispatch('close')">
-                                        {{ __('Cancel') }}
-                                    </x-secondary-button>
-
-                                    <x-danger-button class="ms-3">
-                                        {{ __('Activer le poste') }}
-                                    </x-danger-button>
-                                </div>
-                            </form>
-                        </x-modal>
+                        {{-- Bouton "Activer" retiré --}}
                     </div>
                 @else
                     <div
@@ -151,31 +114,7 @@
                             </p>
                         </header>
 
-                        <x-danger-button x-data="" class="mt-6"
-                            x-on:click.prevent="$dispatch('open-modal', 'confirm-role-deletion')">{{ __('Désactiver') }}</x-danger-button>
-
-                        <x-modal name="confirm-role-deletion" focusable>
-                            <form method="post" action="{{ route('roles.destroy', $role) }}" class="p-6">
-                                @csrf
-                                @method('delete')
-                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                                    {{ __('Êtes-vous sûr de vouloir Désactiver ce poste') }}
-                                </h2>
-
-                                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                    {{ $role->name }}
-                                </p>
-                                <div class="mt-6 flex justify-end">
-                                    <x-secondary-button x-on:click="$dispatch('close')">
-                                        {{ __('Cancel') }}
-                                    </x-secondary-button>
-
-                                    <x-danger-button class="ms-3">
-                                        {{ __('Désactiver le poste') }}
-                                    </x-danger-button>
-                                </div>
-                            </form>
-                        </x-modal>
+                        {{-- Bouton "Désactiver" retiré --}}
                     </div>
                 @endif
             @endif

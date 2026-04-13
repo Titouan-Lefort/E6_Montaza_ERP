@@ -185,6 +185,18 @@ class User extends Authenticatable
     {
         return $this->last_name;
     }
+
+    /**
+     * Get the devis where the user is a charge d'affaires.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function devisChargesAffaire()
+    {
+        return $this->belongsToMany(DevisTuyauterie::class, 'charge_affaire_devis', 'user_id', 'devis_id')
+            ->withTimestamps();
+    }
+
     public function shortcuts()
     {
         return $this->hasMany(UserShortcut::class) ?? collect();
